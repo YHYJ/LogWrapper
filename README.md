@@ -1,0 +1,2 @@
+# LogWrapper
+Python log wrapper
