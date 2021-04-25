@@ -1,0 +1,1 @@
+  - [ ] setup_logger()只需要Project name，不需要logger name，应该给它实现project_name功能 (2021-04-25 09:33)
