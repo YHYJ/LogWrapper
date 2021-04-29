@@ -13,10 +13,10 @@ import logging
 import os
 from logging import handlers
 
-LEVEL = 1
+TIER = 1
 
 
-def logger_name(file=__file__, level=1):
+def logger_name(file=__file__, tier=1):
     """Generate the name of the logger
     Calculate the 'level' based on the project
     name and 'file' name that call this function
@@ -27,35 +27,41 @@ def logger_name(file=__file__, level=1):
          the generated logger name is 'LogWrapper.utils.db_util'
 
     :file: str      -- The name of the file to call this function
-    :level: int     -- File level (relative to the 'Project' folder)
+    :tier: int      -- File tier (relative to the 'Project' folder)
     :returns: str   -- logger name
 
     """
-    # 获取当前文件绝对路径的目录部分
+    # Get the absolute path directory of the current file
     parent = os.path.dirname(file)
-    # 以系统分隔符分隔该部分
+    # Separate the part with a separator
     dir_list = parent.split(os.path.sep)
 
-    # level比目录层级数大时取层级数-1（为了屏蔽分隔出的空字符串），小于0时取值1
-    if int(level) > len(dir_list) - 1:
+    # Specify the value range of level
+    if int(tier) > len(dir_list) - 1:
+        # Filter out empty strings in the separation result
         r_level = len(dir_list) - 1
-    elif 1 <= int(level) <= len(dir_list) - 1:
-        r_level = int(level)
+    elif 1 <= int(tier) <= len(dir_list) - 1:
+        r_level = int(tier)
     else:
         r_level = 1
 
-    # 项目和文件夹名
-    sep = '.'
+    # Get the folder name
+    connector = '.'
     effect_dir = list()
-    # 提取有效的文件夹名
+    # Extract valid folder name
     for lv in range(r_level, 0, -1):
         effect_dir.append(dir_list.pop(-lv))
-    dirname = sep.join(effect_dir)
+    dirname = connector.join(effect_dir)
 
-    # 文件名
+    # Get the file name
     filename = os.path.splitext(os.path.split(file)[1])[0]
 
-    logger_name = '{prefix}.{postfix}'.format(prefix=dirname, postfix=filename)
+    # Get logger_name based on folder name
+    if filename.lower() in ['logwrapper']:
+        logger_name = effect_dir[0]
+    else:
+        logger_name = '{prefix}.{postfix}'.format(prefix=dirname,
+                                                  postfix=filename)
 
     return logger_name
 
@@ -67,7 +73,7 @@ def setup_logging(conf):
     :return: logger
 
     """
-    level = {
+    LEVEL = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
         "WARNING": logging.WARNING,
@@ -84,37 +90,41 @@ def setup_logging(conf):
     backup_count = conf.get('backup_count', 10)  # count of log files
     log_format = conf.get('format', '%(message)s')  # log format
 
-    logger = logging.getLogger(logger_name(file=__file__, level=LEVEL))
+    # Create and set up a logger
+    logger = logging.getLogger(logger_name(file=__file__, tier=TIER))
     logger.setLevel(logging.DEBUG)
-
     formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 
+    # Output to file
     if file:
-        # 如果 log 文本不存在，创建文本
+        # If the log folder does not exist, create it
         dir_path = os.path.dirname(logfile)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
 
-        # 实例化一个 rotate file 的处理器，让日志文件旋转生成
+        # Instantiate a rotate file handler
         fh = handlers.RotatingFileHandler(filename=logfile,
                                           mode='a',
                                           maxBytes=max_size,
                                           backupCount=backup_count,
                                           encoding='utf-8')
-        fh.setLevel(level[file_level])
+        fh.setLevel(LEVEL[file_level])
         fh.setFormatter(formatter)
+
         logger.addHandler(fh)
 
+    # Output to console
     if console:
-        # 实例化一个流式处理器，将日志输出到终端
+        # # Instantiate a stream handler
         ch = logging.StreamHandler()
-        ch.setLevel(level[console_level])
+        ch.setLevel(LEVEL[console_level])
         ch.setFormatter(formatter)
+
         logger.addHandler(ch)
 
     return logger
 
 
 if __name__ == "__main__":
-    name = logger_name(file=__file__, level=LEVEL)
+    name = logger_name(file=__file__, tier=TIER)
     print(name)
