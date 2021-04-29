@@ -69,7 +69,7 @@ def logger_name(file=__file__, tier=1):
 def setup_logging(conf):
     """Initialize the logging module settings
 
-    :conf: initialize parameters
+    :conf: dict     -- Initialize parameters
     :return: logger
 
     """
@@ -81,6 +81,7 @@ def setup_logging(conf):
         "CRITICAL": logging.CRITICAL
     }
 
+    project = conf.get('project', 'Root')  # project name = root logger name
     console = conf.get('console', False)  # console output?
     console_level = conf.get('console_level', 'DEBUG')  # console log level
     file = conf.get('file', True)  # file output?
@@ -91,7 +92,7 @@ def setup_logging(conf):
     log_format = conf.get('format', '%(message)s')  # log format
 
     # Create and set up a logger
-    logger = logging.getLogger(logger_name(file=__file__, tier=TIER))
+    logger = logging.getLogger(project)
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 
