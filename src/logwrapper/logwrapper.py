@@ -66,7 +66,7 @@ def logger_name(file=__file__, tier=1):
     return logger_name
 
 
-def setup_logging(conf):
+def setup_logging(config):
     """Initialize the logging module settings
 
     :conf: dict     -- Initialize parameters
@@ -81,15 +81,15 @@ def setup_logging(conf):
         "CRITICAL": logging.CRITICAL
     }
 
-    project = conf.get('project', 'Root')  # project name = root logger name
-    console = conf.get('console', False)  # console output?
-    console_level = conf.get('console_level', 'DEBUG')  # console log level
-    file = conf.get('file', True)  # file output?
-    file_level = conf.get('file_level', 'WARNING')  # file log level
-    logfile = conf.get('log_file', 'logs/log.log')  # log file save position
-    max_size = conf.get('max_size', 10240000)  # size of each log file
-    backup_count = conf.get('backup_count', 10)  # count of log files
-    log_format = conf.get('format', '%(message)s')  # log format
+    project = config.get('project', 'Root')  # project name = root logger name
+    console = config.get('console', False)  # console output?
+    console_level = config.get('console_level', 'DEBUG')  # console log level
+    file = config.get('file', True)  # file output?
+    file_level = config.get('file_level', 'WARNING')  # file log level
+    logfile = config.get('log_file', 'logs/log.log')  # log file save position
+    max_size = config.get('max_size', 10240000)  # size of each log file
+    backup_count = config.get('backup_count', 10)  # count of log files
+    log_format = config.get('format', '%(message)s')  # log format
 
     # Create and set up a logger
     logger = logging.getLogger(project)
