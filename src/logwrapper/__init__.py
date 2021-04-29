@@ -11,7 +11,7 @@ Description:
 
 from logwrapper import logwrapper
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 logger_name = logwrapper.logger_name
 setup_logging = logwrapper.setup_logging

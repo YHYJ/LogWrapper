@@ -12,6 +12,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Example configuration](#example-configuration)
+* [Usage](#usage)
 
 <!-- vim-markdown-toc -->
 
@@ -45,3 +46,22 @@ format = '%(asctime)s | %(levelname)s | <%(threadName)s> %(module)s.%(funcName)s
 - `max_size`: log file size, the unit is KB
 - `backup_count`: maximum number of log files
 - `format`: format of the log
+
+## Usage
+
+```python
+import logging
+
+from logwrapper import logger_name, setup_logging
+
+loggername = logger_name(file=__file__, tier=1)
+logger = logging.getLogger(loggername)
+
+logger.info('Action')
+```
+
+**NOTE:**
+
+1. The `tier` parent folder of `file` is the `project` name
+
+    E.g: `file = /home/example/Project/src/main.py`, `tier = 2`, return result `loggername = Project.src.main`, namely `project = Project`, which matches the configuration item

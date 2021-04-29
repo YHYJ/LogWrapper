@@ -13,18 +13,16 @@ import logging
 import os
 from logging import handlers
 
-_TIER = 1
 
-
-def logger_name(file=__file__, tier=1):
-    """Generate the name of the logger
+def logger_name(file, tier):
+    """Generate the logger name
     Calculate the 'level' based on the project
     name and 'file' name that call this function
 
-    E.g: '/home/example/LogWrapper/utils/db_util.py'
+    E.g: '/home/example/LogWrapper/utils/util.py'
          'LogWrapper' is the project name
-         db_util.py call this function, the level value is 2
-         the generated logger name is 'LogWrapper.utils.db_util'
+         util.py call this function, tier = 2
+         the generated logger name is 'LogWrapper.utils.util'
 
     :file: str      -- The name of the file to call this function
     :tier: int      -- File tier (relative to the 'Project' folder)
@@ -57,11 +55,7 @@ def logger_name(file=__file__, tier=1):
     filename = os.path.splitext(os.path.split(file)[1])[0]
 
     # Get logger_name based on folder name
-    if filename.lower() in ['logwrapper']:
-        logger_name = effect_dir[0]
-    else:
-        logger_name = '{prefix}.{postfix}'.format(prefix=dirname,
-                                                  postfix=filename)
+    logger_name = '{prefix}.{postfix}'.format(prefix=dirname, postfix=filename)
 
     return logger_name
 
@@ -127,5 +121,5 @@ def setup_logging(config):
 
 
 if __name__ == "__main__":
-    name = logger_name(file=__file__, tier=_TIER)
+    name = logger_name(file=__file__, tier=3)
     print(name)
