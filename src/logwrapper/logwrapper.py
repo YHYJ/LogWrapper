@@ -13,7 +13,7 @@ import logging
 import os
 from logging import handlers
 
-TIER = 1
+_TIER = 1
 
 
 def logger_name(file=__file__, tier=1):
@@ -127,5 +127,5 @@ def setup_logging(config):
 
 
 if __name__ == "__main__":
-    name = logger_name(file=__file__, tier=TIER)
+    name = logger_name(file=__file__, tier=_TIER)
     print(name)
