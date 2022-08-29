@@ -11,6 +11,9 @@
 
 <!-- vim-markdown-toc GFM -->
 
+* [Build & Upload](#build--upload)
+    * [Build](#build)
+    * [Upload](#upload)
 * [Example configuration](#example-configuration)
 * [Usage](#usage)
 
@@ -21,6 +24,20 @@
 Python log wrapper
 
 ---
+
+## Build & Upload
+
+> TODO: 需要补充细节 <29-08-22, YJ> >
+
+### Build
+
+1. `python3 -m pip install --upgrade build`
+2. `python3 -m build`
+
+### Upload
+
+1. `python3 -m pip install --upgrade twine`
+2. `python3 -m twine upload --repository pypi dist/*`
 
 ## Example configuration
 
