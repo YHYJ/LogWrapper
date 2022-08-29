@@ -14,7 +14,7 @@ import os
 from logging import handlers
 
 
-def logger_name(file, tier):
+def loggername_gen(file, tier):
     """Generate the logger name
     Calculate the 'level' based on the project
     name and 'file' name that call this function
@@ -29,8 +29,9 @@ def logger_name(file, tier):
     :returns: str   -- logger name
 
     """
-    # Get the absolute path directory of the current file
-    parent = os.path.dirname(file)
+    # Get the absolute path directory
+    absfile = os.path.abspath(file)
+    parent = os.path.dirname(absfile)
     # Separate the part with a separator
     dir_list = parent.split(os.path.sep)
 
@@ -121,5 +122,5 @@ def setup_logging(config):
 
 
 if __name__ == "__main__":
-    name = logger_name(file=__file__, tier=3)
+    name = loggername_gen(file=__file__, tier=3)
     print(name)
