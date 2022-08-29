@@ -27,8 +27,6 @@ Python log wrapper
 
 ## Build & Upload
 
-> TODO: 需要补充细节 <29-08-22, YJ> >
-
 ### Build
 
 1. `python3 -m pip install --upgrade build`
