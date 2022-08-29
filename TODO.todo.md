@@ -1,3 +1,4 @@
   - [X] setup_logger()只需要Project name，不需要logger name，应该给它实现project_name功能 (2021-04-25 09:33)
   - [ ] 补充README中关于构建和上传的细节 (2022-08-29 19:41)
   - [ ] loggername_gen函数添加参数判断逻辑（文件还是纯字符串） (2022-08-29 19:42)
+  - [ ] 根Logger和子Logger不能通过配置文件中的log.project绑定，否则不匹配 (2022-08-29 20:15)
