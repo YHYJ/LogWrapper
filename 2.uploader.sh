@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : << !
-Name: upload.sh
+Name: 2.uploader.sh
 Author: YJ
 Email: yj1516268@outlook.com
 Created Time: 2023-02-08 16:47:24

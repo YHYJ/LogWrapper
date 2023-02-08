@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : << !
-Name: build.sh
+Name: 1.builder.sh
 Author: YJ
 Email: yj1516268@outlook.com
 Created Time: 2023-02-08 16:46:28
