@@ -28,9 +28,9 @@ def main():
     """docstring for main"""
     logger = get_logger(logfolder='logs', config=log_conf)
 
-    logger.warning('Warning')
-    logger.error('Error')
-    logger.critical('Error')
+    logger.warning('Warning text')
+    logger.error('Error text')
+    logger.critical('Critical text')
 
 
 if __name__ == "__main__":

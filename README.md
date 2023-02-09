@@ -56,7 +56,7 @@ def main():
 
     logger.warning('Warning text')
     logger.error('Error text')
-    logger.critical('Error text')
+    logger.critical('Critical text')
 
 
 if __name__ == "__main__":
