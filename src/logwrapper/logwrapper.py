@@ -37,7 +37,7 @@ def get_logger(logfolder, config):
 
     # Create and set up a logger
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    logger.setLevel(LEVEL['WARNING'])
     formatter = logging.Formatter(log_format, datefmt='%Y-%m-%d %H:%M:%S')
 
     # Output to file
