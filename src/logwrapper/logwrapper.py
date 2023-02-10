@@ -14,7 +14,7 @@ import os
 from logging import handlers
 
 
-def get_logger(logfolder, config):
+def get_logger(logfolder: str, config: dict):
     """Initialize the log module and get logger
 
     :logfolder: str -- Log folder name
