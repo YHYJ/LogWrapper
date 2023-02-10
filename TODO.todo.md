@@ -1,3 +1,3 @@
-  - [ ] 配置文件中增加handler筛选，由用户自定是要使用的handler (2023-02-09 16:49)
   - [X] 补充README中关于构建和上传的细节 (2022-08-29 19:41)
   - [X] setup_logger()只需要Project name，不需要logger name，应该给它实现project_name功能 (2021-04-25 09:33)
+  - [X] 配置文件中增加handler筛选，由用户自定是要使用的handler (2023-02-09 16:49)
