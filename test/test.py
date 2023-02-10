@@ -12,12 +12,10 @@ Description:
 from logwrapper import get_logger
 
 log_conf = {
-    'to_console':
-    True,
-    'console_level':
-    'DEBUG',
-    'to_file':
-    True,
+    'to_console': True,
+    'console_level': 'DEBUG',
+    'to_file': True,
+    'file_level': ['WARNING', 'ERROR', 'CRITICAL'],
     'format':
     '''%(asctime)s | %(levelname)-8s | <%(threadName)s> '''
     '''%(module)s.%(funcName)s [%(lineno)d]: %(message)s'''

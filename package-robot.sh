@@ -27,6 +27,7 @@ else
   source "$virtualenvwrapper"
 fi
 workon build-upload
+echo -e "Now in 'build-upload' virtual environment"
 
 # 安装依赖包
 python3 -m pip install --upgrade build twine

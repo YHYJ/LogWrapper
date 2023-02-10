@@ -30,10 +30,16 @@ def get_logger(logfolder, config):
         "CRITICAL": logging.CRITICAL
     }
 
+    # Get config
     to_console = config.get('to_console', False)  # Output to console?
-    console_level = config.get('console_level', 'DEBUG')  # console log level
+    console_level = config.get('console_level', 'DEBUG')  # Console log level
     to_file = config.get('to_file', True)  # Output to file?
-    log_format = config.get('format', '%(message)s')  # log format
+    log_format = config.get('format', '%(message)s')  # Define log format
+    file_level = config.get(
+        'file_level', ['WARNING', 'ERROR', 'CRITICAL'])  # Choose File handler
+
+    # Define variable
+    sep = os.path.sep
 
     # Create and set up a logger
     logger = logging.getLogger()
@@ -48,59 +54,61 @@ def get_logger(logfolder, config):
 
         # Instantiate the rotated file handler
         # INFO Level
-        info_logfile = '{}{}{}'.format(logfolder, os.path.sep, 'info.log')
-        info_filehandler = handlers.TimedRotatingFileHandler(
-            filename=info_logfile,
-            when='midnight',
-            interval=1,
-            backupCount=0,
-            encoding='UTF-8')
-        info_filehandler.setLevel(LEVEL['INFO'])
-        info_filehandler.setFormatter(formatter)
-        # WARNING Level
-        warning_logfile = '{}{}{}'.format(logfolder, os.path.sep,
-                                          'warning.log')
-        warning_filehandler = handlers.TimedRotatingFileHandler(
-            filename=warning_logfile,
-            when='midnight',
-            interval=1,
-            backupCount=0,
-            encoding='UTF-8')
-        warning_filehandler.setLevel(LEVEL['WARNING'])
-        warning_filehandler.setFormatter(formatter)
-        # ERROR Level
-        error_logfile = '{}{}{}'.format(logfolder, os.path.sep, 'error.log')
-        error_filehandler = handlers.TimedRotatingFileHandler(
-            filename=error_logfile,
-            when='midnight',
-            interval=1,
-            backupCount=0,
-            encoding='UTF-8')
-        error_filehandler.setLevel(LEVEL['ERROR'])
-        error_filehandler.setFormatter(formatter)
-        # CRITICAL Level
-        critical_logfile = '{}{}{}'.format(logfolder, os.path.sep,
-                                           'critical.log')
-        critical_filehandler = handlers.TimedRotatingFileHandler(
-            filename=critical_logfile,
-            when='midnight',
-            interval=1,
-            backupCount=0,
-            encoding='UTF-8')
-        critical_filehandler.setLevel(LEVEL['CRITICAL'])
-        critical_filehandler.setFormatter(formatter)
+        if 'info' in file_level or 'info'.upper() in file_level:
+            info_logfile = '{}{}{}'.format(logfolder, sep, 'info.log')
+            info_filehandler = handlers.TimedRotatingFileHandler(
+                filename=info_logfile,
+                when='midnight',
+                interval=1,
+                backupCount=0,
+                encoding='UTF-8')
+            info_filehandler.setLevel(LEVEL['INFO'])
+            info_filehandler.setFormatter(formatter)
+            logger.addHandler(info_filehandler)
 
-        # Add handler to logger
-        logger.addHandler(info_filehandler)
-        logger.addHandler(warning_filehandler)
-        logger.addHandler(error_filehandler)
-        logger.addHandler(critical_filehandler)
+        # WARNING Level
+        if 'warning' in file_level or 'warning'.upper() in file_level:
+            warning_logfile = '{}{}{}'.format(logfolder, sep, 'warning.log')
+            warning_filehandler = handlers.TimedRotatingFileHandler(
+                filename=warning_logfile,
+                when='midnight',
+                interval=1,
+                backupCount=0,
+                encoding='UTF-8')
+            warning_filehandler.setLevel(LEVEL['WARNING'])
+            warning_filehandler.setFormatter(formatter)
+            logger.addHandler(warning_filehandler)
+
+        # ERROR Level
+        if 'error' in file_level or 'error'.upper() in file_level:
+            error_logfile = '{}{}{}'.format(logfolder, sep, 'error.log')
+            error_filehandler = handlers.TimedRotatingFileHandler(
+                filename=error_logfile,
+                when='midnight',
+                interval=1,
+                backupCount=0,
+                encoding='UTF-8')
+            error_filehandler.setLevel(LEVEL['ERROR'])
+            error_filehandler.setFormatter(formatter)
+            logger.addHandler(error_filehandler)
+        # CRITICAL Level
+        if 'critical' in file_level or 'critical'.upper() in file_level:
+            critical_logfile = '{}{}{}'.format(logfolder, sep, 'critical.log')
+            critical_filehandler = handlers.TimedRotatingFileHandler(
+                filename=critical_logfile,
+                when='midnight',
+                interval=1,
+                backupCount=0,
+                encoding='UTF-8')
+            critical_filehandler.setLevel(LEVEL['CRITICAL'])
+            critical_filehandler.setFormatter(formatter)
+            logger.addHandler(critical_filehandler)
 
     # Output to console
     if to_console:
         # # Instantiate a stream handler
         consolehandler = logging.StreamHandler()
-        consolehandler.setLevel(LEVEL[console_level])
+        consolehandler.setLevel(LEVEL[console_level.upper()])
         consolehandler.setFormatter(formatter)
 
         # Add handler to logger

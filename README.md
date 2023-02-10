@@ -11,7 +11,7 @@
 
 <!-- vim-markdown-toc GFM -->
 
-* [Example configuration](#example-configuration)
+* [Configuration](#configuration)
 * [Usage](#usage)
 
 <!-- vim-markdown-toc -->
@@ -22,20 +22,24 @@ Python log wrapper
 
 ---
 
-## Example configuration
+## Configuration
+
+Configuration file example (toml format)
 
 ```toml
 [log]
 to_console = true
 console_level = 'DEBUG'
 to_file = true
+file_level = ['INFO', 'WARNING', 'ERROR', 'CRITICAL']
 format = '%(asctime)s | %(levelname)-8s | <%(threadName)s> %(module)s.%(funcName)s [%(lineno)d]: %(message)s'
 ```
 
-- `to_console`: whether to output log to STDOUT, use it during debugging, and close it during formal deployment
-- `console_level`: log level, optional values are 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
-- `to_file`: whether to output log to file
-- `format`: format of the log
+- `to_console`: whether to output log to STDOUT, 'true' or 'false', use it during debugging, and close it during formal deployment
+- `console_level`: console log level (string), optional values are 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+- `to_file`: whether to output log to file, 'true' or 'false'
+- `file_level`: file log level (list), fill in 'INFO', 'WARNING', 'ERROR', 'CRITICAL' according to the actual situation
+- `format`: log format, '8' represents the string length, '-' represents left alignment (default right alignment)
 
 ## Usage
 
@@ -46,7 +50,10 @@ log_conf = {
     'to_console': True,
     'console_level': 'DEBUG',
     'to_file': True,
-    'format': '''%(asctime)s | %(levelname)-8s | <%(threadName)s> %(module)s.%(funcName)s [%(lineno)d]: %(message)s'''
+    'file_level': ['WARNING', 'ERROR', 'CRITICAL'],
+    'format':
+    '''%(asctime)s | %(levelname)-8s | <%(threadName)s> '''
+    '''%(module)s.%(funcName)s [%(lineno)d]: %(message)s'''
 }
 
 
