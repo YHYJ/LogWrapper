@@ -36,7 +36,7 @@ def get_logger(logfolder: str, config: dict):
     to_file = config.get('to_file', True)  # Output to file?
     log_format = config.get('format', '%(message)s')  # Define log format
     file_level = config.get(
-        'file_level', ['WARNING', 'ERROR', 'CRITICAL'])  # Choose File handler
+        'file_level', ['INFO', 'WARNING', 'ERROR'])  # Choose File handler
 
     # Define variable
     sep = os.path.sep
