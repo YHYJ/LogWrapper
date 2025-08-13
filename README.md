@@ -32,6 +32,7 @@ to_console = true
 console_level = 'DEBUG'
 to_file = true
 file_level = ['INFO', 'WARNING', 'ERROR', 'CRITICAL']
+backup_count = 10
 format = '%(asctime)s | %(levelname)-8s | <%(threadName)s> %(module)s.%(funcName)s [%(lineno)d]: %(message)s'
 ```
 
@@ -39,6 +40,7 @@ format = '%(asctime)s | %(levelname)-8s | <%(threadName)s> %(module)s.%(funcName
 - `console_level`: console log level (string), optional values are 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
 - `to_file`: whether to output log to file, 'true' or 'false'
 - `file_level`: file log level (list), fill in 'INFO', 'WARNING', 'ERROR', 'CRITICAL' according to the actual situation
+- `backup_count`: log backup count
 - `format`: log format, '8' represents the string length, '-' represents left alignment (default right alignment)
 
 ## Usage
@@ -51,6 +53,7 @@ log_conf = {
     'console_level': 'DEBUG',
     'to_file': True,
     'file_level': ['WARNING', 'ERROR', 'CRITICAL'],
+    'backup_count': 10,
     'format':
     '''%(asctime)s | %(levelname)-8s | <%(threadName)s> '''
     '''%(module)s.%(funcName)s [%(lineno)d]: %(message)s'''

@@ -34,9 +34,10 @@ def get_logger(logfolder: str, config: dict):
     to_console = config.get('to_console', False)  # Output to console?
     console_level = config.get('console_level', 'DEBUG')  # Console log level
     to_file = config.get('to_file', True)  # Output to file?
-    log_format = config.get('format', '%(message)s')  # Define log format
     file_level = config.get(
         'file_level', ['INFO', 'WARNING', 'ERROR'])  # Choose File handler
+    backup_count = config.get('backup_count', 10)  # Count of backup log files
+    log_format = config.get('format', '%(message)s')  # Define log format
 
     # Define variable
     sep = os.path.sep
@@ -60,7 +61,7 @@ def get_logger(logfolder: str, config: dict):
                 filename=info_logfile,
                 when='midnight',
                 interval=1,
-                backupCount=0,
+                backupCount=backup_count,
                 encoding='UTF-8')
             info_filehandler.setLevel(LEVEL['INFO'])
             info_filehandler.setFormatter(formatter)
@@ -73,7 +74,7 @@ def get_logger(logfolder: str, config: dict):
                 filename=warning_logfile,
                 when='midnight',
                 interval=1,
-                backupCount=0,
+                backupCount=backup_count,
                 encoding='UTF-8')
             warning_filehandler.setLevel(LEVEL['WARNING'])
             warning_filehandler.setFormatter(formatter)
@@ -86,11 +87,12 @@ def get_logger(logfolder: str, config: dict):
                 filename=error_logfile,
                 when='midnight',
                 interval=1,
-                backupCount=0,
+                backupCount=backup_count,
                 encoding='UTF-8')
             error_filehandler.setLevel(LEVEL['ERROR'])
             error_filehandler.setFormatter(formatter)
             logger.addHandler(error_filehandler)
+
         # CRITICAL Level
         if 'critical' in file_level or 'critical'.upper() in file_level:
             critical_logfile = '{}{}{}'.format(logfolder, sep, 'critical.log')
@@ -98,7 +100,7 @@ def get_logger(logfolder: str, config: dict):
                 filename=critical_logfile,
                 when='midnight',
                 interval=1,
-                backupCount=0,
+                backupCount=backup_count,
                 encoding='UTF-8')
             critical_filehandler.setLevel(LEVEL['CRITICAL'])
             critical_filehandler.setFormatter(formatter)
